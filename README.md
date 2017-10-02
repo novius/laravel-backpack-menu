@@ -11,6 +11,10 @@ Manages the editing and rendering of menus
 - [ ] Rename ServiceProvider ;
 - [ ] Update composer.json (keywords, authors, require, extra...) ;
 - [ ] Remove this TODO section.
+- [ ] Create slug on saving a menu.
+- [ ] Save local on saving an item.
+- [ ] Order items list by locale.
+- [ ] Create Menu::display($slug, $locale).
 
 
 ## Installation
