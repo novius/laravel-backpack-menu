@@ -8,5 +8,6 @@ return [
     'edit' => [
         'name' => 'Name',
         'link' => 'Link',
-    ]
+        'slug' => 'Slug',
+    ],
 ];

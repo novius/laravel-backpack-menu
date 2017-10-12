@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Defines the routes of Backpack
+ */
 Route::group([
     'namespace' => 'Novius\Menu\Http\Controllers\Admin\Menu',
     'prefix' => config('laravel-menu.prefix', 'admin'),
@@ -7,6 +9,4 @@ Route::group([
 ], function () {
     CRUD::resource('menu', 'MenuController');
     CRUD::resource('item', 'ItemController');
-
-//    Route::get('/items', 'ItemController@index')->name('crud.menu.showItems');
 });

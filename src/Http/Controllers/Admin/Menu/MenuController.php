@@ -26,6 +26,13 @@ class MenuController extends CrudController
             'name' => 'name',
             'label' => trans('laravel-menu::menu.edit.name'),
         ]);
+
+        $this->crud->addField([
+            'name' => 'slug',
+            'label' => trans('laravel-menu::menu.edit.slug'),
+            'type' => 'text',
+            'attributes' => ['disabled' => 'disabled']
+        ]);
     }
 
     public function store(StoreRequest $request)

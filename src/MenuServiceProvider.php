@@ -4,7 +4,7 @@ namespace Novius\Menu;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider
+class MenuServiceProvider extends LaravelServiceProvider
 {
     const CONFIG_FILE_NAME = 'laravel-menu';
 

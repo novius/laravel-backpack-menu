@@ -5,7 +5,9 @@ namespace Novius\Menu\Http\Controllers\Admin\Menu;
 use App\Models\Form\Form;
 use App\Models\Page;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
+use Novius\Menu\LinkedItems;
 use Novius\Menu\Models\Item;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as UpdateRequest;
@@ -58,23 +60,16 @@ class ItemController extends CrudController
             'allows_multiple' => false,
         ]);
 
-        $pages = Page::linkableItems(trans('configuration.items.page'));
-        $forms = Form::linkableItems(trans('configuration.items.form'));
-
-        $links = array_merge(
-            $pages,
-            $forms
-        );
-
         $this->crud->addField([
             'name' => 'links',
             'label' => 'Link',
             'type' => 'select2_from_array',
-            'options' => $links,
-            'allows_null' => false,
+            'options' => LinkedItems::links(),
+            'allows_null' => true,
             'allows_multiple' => false,
         ]);
 
+        $this->crud->query->where('locale', App::getLocale());
         $this->crud->orderBy('menu_id');
         $this->crud->orderBy('lft');
 
@@ -91,11 +86,15 @@ class ItemController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        $request->request->set('locale', App::getLocale());
+
         return parent::storeCrud($request);
     }
 
     public function update(UpdateRequest $request)
     {
+        $request->request->set('locale', App::getLocale());
+
         return parent::updateCrud($request);
     }
 
