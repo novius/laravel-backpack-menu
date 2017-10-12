@@ -5,7 +5,7 @@ return [
      * The prefix is used by backpack to generate routes. The default value is "admin".
      */
 
-    'prefix' => '',
+    'prefix' => 'admin',
 
     /*
      * Entities linkable by an menu item. For instance here we have:
@@ -18,6 +18,7 @@ return [
      *          full-class-name => prefix for the list in backoffice
      *
      * The prefix will be a parameter of the laravel function trans().
+     * The models listed below muste use the trait LinkedItems.
      */
 
     'linkableObjects' => [
