@@ -52,6 +52,7 @@ public static function linkableItems(string $prefix = ''){}
 public function linkableUrl(){}
 ```
 
+
 4. Add a link in your sidebar.blade.php file to get access from the backpack backoffice:
 ```html
         <li>
