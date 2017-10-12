@@ -17,7 +17,17 @@ composer require novius/laravel-menu
 In `config/app.php`, add:
 
 ```php
-Novius\Menu\ServiceProvider::class,
+Novius\Menu\MenuServiceProvider::class,
+```
+
+Execute:
+```bash
+php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="routes"
+php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="lang"
+php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="views"
+php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="config"
+php artisan migrate
 ```
 
 ## Usage & Features
