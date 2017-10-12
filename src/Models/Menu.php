@@ -2,7 +2,6 @@
 
 namespace Novius\Menu\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -62,7 +61,7 @@ class Menu extends Model
      */
     public static function display($slug, $locale = null)
     {
-        $menu = Menu::where('slug', '=', $slug)->firstOrFail();
+        $menu = self::where('slug', '=', $slug)->firstOrFail();
         $items = Item::where('menu_id', '=', $menu->id)
                     ->where('locale', '=', $locale ?: App::getLocale())
                     ->orderBy('lft', 'asc')

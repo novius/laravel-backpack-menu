@@ -33,12 +33,12 @@ class Item extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Item::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany(Item::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     /**
@@ -67,12 +67,12 @@ class Item extends Model
     {
         $linkParts = explode(LinkedItems::$delimiter, $this->links, 2);
 
-        if(count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
+        if (count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
             list($id, $class) = $linkParts;
             $object = $class::find($id);
             $href = $object->linkableUrl();
-        } else if(count($linkParts) === 1) { // ex: contact
-            if($this->links) {
+        } elseif (count($linkParts) === 1) { // ex: contact
+            if ($this->links) {
                 $href = url($this->links);
             } else {
                 $href = null;

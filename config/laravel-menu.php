@@ -1,13 +1,13 @@
 <?php
 
 return [
-    /**
+    /*
      * The prefix is used by backpack to generate routes. The default value is "admin".
      */
 
     'prefix' => '',
 
-    /**
+    /*
      * Entities linkable by an menu item. For instance here we have:
      *  1. Forms
      *  2. Pages
@@ -25,7 +25,7 @@ return [
         'App\Models\Page' => 'Page',
     ],
 
-    /**
+    /*
      * Sometimes you need to link items that are not objects.
      * This config allows you to link urls.
      * "contact" will produce something like: "http://yourbaseurl.com/contact"
@@ -34,5 +34,3 @@ return [
         'contact' => 'Autre maniere de linker le form contact',
     ],
 ];
-
-

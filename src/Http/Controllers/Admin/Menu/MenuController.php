@@ -31,7 +31,7 @@ class MenuController extends CrudController
             'name' => 'slug',
             'label' => trans('laravel-menu::menu.edit.slug'),
             'type' => 'text',
-            'attributes' => ['disabled' => 'disabled']
+            'attributes' => ['disabled' => 'disabled'],
         ]);
     }
 

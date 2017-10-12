@@ -45,6 +45,5 @@ class MenuServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-
     }
 }
