@@ -33,7 +33,6 @@ class MenuServiceProvider extends LaravelServiceProvider
         ], static::CONFIG_FILE_NAME);
 
         $this->loadMigrationsFrom($packageDir.'/database/migrations');
-        $this->loadRoutesFrom($packageDir.'/routes/menu.php');
         $this->loadTranslationsFrom($translationPath, static::CONFIG_FILE_NAME);
         $this->loadViewsFrom($viewsPath, static::CONFIG_FILE_NAME);
     }
@@ -45,5 +44,22 @@ class MenuServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
+        $this->setupRoutes();
+    }
+
+    /**
+     * By default the package uses its own routes defined in /routes/backpack/laravel-menu.php
+     * But you can easily override these routes by placing a file in your application /routes/backpack/laravel-menu.php
+     */
+    protected function setupRoutes()
+    {
+        $appRoutesPath = '/../routes/backpack/laravel-menu.php';
+        $packageRoutesPath = dirname(__DIR__).'/routes/backpack/laravel-menu.php';
+
+        if (file_exists(base_path().$appRoutesPath)) {
+            $packageRoutesPath = base_path().$appRoutesPath;
+        }
+
+        $this->loadRoutesFrom($packageRoutesPath);
     }
 }
