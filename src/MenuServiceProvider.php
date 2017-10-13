@@ -61,6 +61,6 @@ class MenuServiceProvider extends LaravelServiceProvider
         $commonPath = '/routes/backpack/'.static::PACKAGE_NAME.'.php';
         $appRoutesPath = base_path().$commonPath;
         $packageRoutesPath = dirname(__DIR__).$commonPath;
-        $this->loadRoutesFrom(fileExists($appRoutesPath) ? $appRoutesPath : $packageRoutesPath);
+        $this->loadRoutesFrom(file_exists($appRoutesPath) ? $appRoutesPath : $packageRoutesPath);
     }
 }
