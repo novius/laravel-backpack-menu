@@ -1,5 +1,9 @@
 @if($href)
-    <a href="{{ $href }}">{{ $name }}</a>
+    <a href="{{ $href }}" title="">
+        {{ $name }}
+    </a>
 @elseif($name)
-    {{ $name }}
+    <div>
+        {{ $name }}
+    </div>
 @endif
