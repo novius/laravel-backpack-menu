@@ -9,29 +9,32 @@ return [
 
     /*
      * Entities linkable by an menu item. For instance here we have:
-     *  1. Forms
-     *  2. Pages
+     *  1. Pages
      *
-     * So the forms and pages of your application will be listed and linkable by an item menu.
+     * So the pages of your application will be listed and linkable by an item menu.
      *
-     * It must contains pairs of:
+     * It must contain pairs of:
      *          full-class-name => prefix for the list in backoffice
      *
-     * The prefix will be a parameter of the laravel function trans().
-     * The models listed below muste use the trait LinkedItems.
+     * The "prefix for the list in backoffice" will be a parameter of the laravel function trans().
+     *  For instance:
+     *      'App\Models\Page' => 'path.to.translation.page'
+     * The models listed below must use the trait LinkedItems.
      */
 
     'linkableObjects' => [
-        'App\Models\Form\Form' => 'configuration.items.form',
         'App\Models\Page' => 'Page',
     ],
 
     /*
      * Sometimes you need to link items that are not objects.
+     *
      * This config allows you to link urls.
+     *     For instance:
+     *       'contact' => 'Page contact',
      * "contact" will produce something like: "http://yourbaseurl.com/contact"
      */
     'linkableUrls' => [
-        'contact' => 'Autre maniere de linker le form contact',
+
     ],
 ];
