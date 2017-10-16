@@ -34,7 +34,7 @@ class ItemController extends CrudController
         $this->crud->addColumn([
             'name' => 'name',
             'label' => trans('laravel-menu::menu.edit.name'),
-            'type' => "model_function",
+            'type' => 'model_function',
             'function_name' => 'nameLabelAccordingToDepth',
         ]);
 
