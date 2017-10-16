@@ -15,7 +15,7 @@ class Menu extends Model
     use CrudTrait;
     use Sluggable;
 
-    protected $table = 'novius-menus';
+    protected $table = 'novius_menus';
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',

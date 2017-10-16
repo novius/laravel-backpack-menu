@@ -17,9 +17,10 @@ class ItemController extends CrudController
     {
         $this->crud->setModel(Item::class);
         $this->crud->setRoute(route('crud.item.index'));
+        $this->crud->setEntityNameStrings(trans('laravel-menu::menu.item'), trans('laravel-menu::menu.items'));
 
         $this->crud->addFilter([
-            'name' => 'menu',
+            'name' => 'id',
             'type' => 'select2',
             'label' => trans('laravel-menu::menu.menu'),
         ], function () {
@@ -28,7 +29,7 @@ class ItemController extends CrudController
             $this->crud->addClause('where', 'menu_id', $value);
         });
 
-        $this->crud->setEntityNameStrings(trans('laravel-menu::menu.item'), trans('laravel-menu::menu.items'));
+        $this->crud->addButton('top', 'menus', 'view', 'laravel-menu::buttons.menus', 'beginning');
 
         $this->crud->addColumn([
             'name' => 'name',
@@ -77,7 +78,7 @@ class ItemController extends CrudController
     public function edit($id)
     {
         $item = Item::find($id);
-        $this->crud->setIndexRoute('crud.item.index', ['menu' => $item->menu_id]);
+        $this->crud->setIndexRoute('crud.item.index', ['id' => $item->menu_id]);
 
         return parent::edit($id);
     }
@@ -100,7 +101,7 @@ class ItemController extends CrudController
     {
         $this->crud->allowAccess('reorder');
         $this->crud->enableReorder('name', 5);
-        $this->crud->setReorderRoute('crud.item.index', ['menu' => request('menu')]);
+        $this->crud->setReorderRoute('crud.item.index', ['id' => request('id')]);
 
         // The correct way if the PR is accepted https://github.com/Laravel-Backpack/CRUD/pull/932
         // $this->setReorderFilterCallback(function(){});
@@ -109,7 +110,7 @@ class ItemController extends CrudController
         // (overriding the view Reorder)
         $this->data['reorder_filter_callback'] = function ($value, $key) {
             $isValid = true;
-            $menu_id = (int) Input::get('menu');
+            $menu_id = (int) Input::get('id');
             if ($menu_id) {
                 $isValid = $value->menu_id == $menu_id;
             }

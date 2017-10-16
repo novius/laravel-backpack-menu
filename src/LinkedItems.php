@@ -25,7 +25,7 @@ trait LinkedItems
     {
         return static::all()->mapWithKeys(function ($item) use ($prefix) {
             return [
-                implode(static::$delimiter, [$item->id, get_class($item)]) => static::linkableLabel($item->name, $prefix),
+                implode(static::$delimiter, [$item->id, get_class($item)]) => static::linkableLabel($item->linkableTitle(), $prefix),
             ];
         })->toArray();
     }
@@ -55,6 +55,8 @@ trait LinkedItems
             $links = array_merge($links, $items);
         }
 
+        asort($links);
+
         return $links;
     }
 
@@ -63,6 +65,11 @@ trait LinkedItems
         return url($this->slug);
     }
 
+    /**
+     * Returns the label for the item. Title by default.
+     * Optionally overridable within items having no title (for instance name)
+     * @return string
+     */
     public function linkableTitle()
     {
         return $this->title;

@@ -13,7 +13,7 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('novius-menus', function (Blueprint $table) {
+        Schema::create('novius_menus', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::drop('novius-menus');
+        Schema::drop('novius_menus');
     }
 }

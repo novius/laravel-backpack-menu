@@ -14,7 +14,7 @@ class Item extends Model
 {
     use CrudTrait;
 
-    protected $table = 'novius-menu-items';
+    protected $table = 'novius_menu_items';
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
@@ -73,7 +73,7 @@ class Item extends Model
             $href = $object->linkableUrl();
         } elseif (count($linkParts) === 1) { // ex: contact
             if ($this->links) {
-                $href = url($this->links);
+                $href = route($this->links);
             } else {
                 $href = null;
             }

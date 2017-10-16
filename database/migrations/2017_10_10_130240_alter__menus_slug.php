@@ -13,7 +13,7 @@ class AlterMenusSlug extends Migration
      */
     public function up()
     {
-        Schema::table('novius-menus', function (Blueprint $table) {
+        Schema::table('novius_menus', function (Blueprint $table) {
             $table->string('slug');
         });
     }
@@ -25,7 +25,7 @@ class AlterMenusSlug extends Migration
      */
     public function down()
     {
-        Schema::table('novius-menus', function (Blueprint $table) {
+        Schema::table('novius_menus', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
     }

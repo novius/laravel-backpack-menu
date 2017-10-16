@@ -33,6 +33,8 @@ class MenuController extends CrudController
             'type' => 'text',
             'attributes' => ['disabled' => 'disabled'],
         ]);
+
+        $this->crud->orderBy('name');
     }
 
     public function store(StoreRequest $request)

@@ -3,8 +3,8 @@
 return [
     'menu' => 'Menu',
     'menus' => 'Menus',
-    'item' => 'Item',
-    'items' => 'Items',
+    'item' => 'Elément',
+    'items' => 'Entrées',
     'edit' => [
         'name' => 'Nom',
         'link' => 'Lien',
