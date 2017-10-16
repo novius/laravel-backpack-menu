@@ -13,7 +13,7 @@ class CreateMenuItemRelation extends Migration
      */
     public function up()
     {
-        Schema::table('novius-menu-items', function (Blueprint $table) {
+        Schema::table('novius_menu_items', function (Blueprint $table) {
             $table->unsignedInteger('menu_id');
         });
     }
@@ -25,7 +25,7 @@ class CreateMenuItemRelation extends Migration
      */
     public function down()
     {
-        Schema::table('novius-menu-items', function (Blueprint $table) {
+        Schema::table('novius_menu_items', function (Blueprint $table) {
             $table->dropColumn('menu_id');
         });
     }

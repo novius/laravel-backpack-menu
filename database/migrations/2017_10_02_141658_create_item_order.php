@@ -13,7 +13,7 @@ class CreateItemOrder extends Migration
      */
     public function up()
     {
-        Schema::table('novius-menu-items', function (Blueprint $table) {
+        Schema::table('novius_menu_items', function (Blueprint $table) {
             $table->integer('parent_id')->default(0)->nullable();
             $table->integer('lft')->unsigned()->nullable();
             $table->integer('rgt')->unsigned()->nullable();
@@ -28,7 +28,7 @@ class CreateItemOrder extends Migration
      */
     public function down()
     {
-        Schema::table('novius-menu-items', function (Blueprint $table) {
+        Schema::table('novius_menu_items', function (Blueprint $table) {
             $table->dropColumn('parent_id');
             $table->dropColumn('lft');
             $table->dropColumn('rgt');

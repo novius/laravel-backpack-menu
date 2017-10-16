@@ -55,6 +55,8 @@ trait LinkedItems
             $links = array_merge($links, $items);
         }
 
+        asort($links);
+
         return $links;
     }
 
