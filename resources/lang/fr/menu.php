@@ -4,7 +4,7 @@ return [
     'menu' => 'Menu',
     'menus' => 'Menus',
     'item' => 'Elément',
-    'items' => 'Gérer les entrées',
+    'items' => 'Entrées',
     'edit' => [
         'name' => 'Nom',
         'link' => 'Lien',
