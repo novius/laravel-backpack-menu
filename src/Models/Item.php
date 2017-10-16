@@ -9,6 +9,7 @@ use Novius\Menu\LinkedItems;
 /**
  * @property mixed locale
  * @property mixed name
+ * @property mixed depth
  */
 class Item extends Model
 {
@@ -82,5 +83,19 @@ class Item extends Model
         }
 
         return $href;
+    }
+
+    /**
+     * Used in the list of menu items in backpack.
+     * The names are indented according to the depth of the item. Improves readability.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function nameLabelAccordingToDepth()
+    {
+        return view('laravel-menu::item.label', [
+            'depth' => $this->depth ?: 0,
+            'name' => $this->name,
+        ]);
     }
 }
