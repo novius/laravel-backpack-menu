@@ -100,7 +100,7 @@ trait LinkedItems
      * @param array $links an array of linkableItems and/or linkableUrls
      * @return array An array of url => label
      */
-    public static function linkedItemsOrUrlRoutes ($links = [])
+    public static function linkedItemsOrUrlRoutes($links = [])
     {
         $linkedItemsOrUrlRoutes = [];
         $linkableUrls = config('laravel-menu.linkableUrls', []);
@@ -108,7 +108,7 @@ trait LinkedItems
         foreach ($links as $link) {
             $url = null;
             $label = null;
-            $linkParts = explode(LinkedItems::$delimiter, $link, 2);
+            $linkParts = explode(self::$delimiter, $link, 2);
 
             if (count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
                 list($id, $class) = $linkParts;
