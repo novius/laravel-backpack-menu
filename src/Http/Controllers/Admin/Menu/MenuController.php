@@ -2,7 +2,7 @@
 
 namespace Novius\Menu\Http\Controllers\Admin\Menu;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Novius\Menu\Models\Menu;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as UpdateRequest;

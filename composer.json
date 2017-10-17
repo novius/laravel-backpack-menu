@@ -18,7 +18,7 @@
   "require": {
     "php": ">=7.1",
     "laravel/framework": "~5.4.0|~5.5.0",
-    "backpack/crud": "~3.2.15"
+    "novius/laravel-backpack-crud-extended": "~0.2.3"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "~2.5.0",

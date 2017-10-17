@@ -33,6 +33,7 @@ return [
      *     For instance:
      *       'contact' => 'Page contact',
      * "contact" will be the parameter of the laravel function route().
+     * "Page contact" will be the parameter of the laravel function trans().
      */
     'linkableUrls' => [
 

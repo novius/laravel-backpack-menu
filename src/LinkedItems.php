@@ -36,7 +36,7 @@ trait LinkedItems
     }
 
     /**
-     * Builds an array of linkable items to feed a list on the back office
+     * Builds an array of linkable items and routes to feed a list on the back office
      *
      * @return array
      */
@@ -91,6 +91,42 @@ trait LinkedItems
         $url = $linkedItem->linkableUrl();
 
         return [$url => $label];
+    }
+
+    /**
+     * It takes both linkableItems and linkableUrls and returns an array or urls and labels.
+     * Builds an array of both linkableItems and linkableUrls to feed a list on the front office
+     *
+     * @param array $links an array of linkableItems and/or linkableUrls
+     * @return array An array of url => label
+     */
+    public static function linkedItemsOrUrlRoutes($links = [])
+    {
+        $linkedItemsOrUrlRoutes = [];
+        $linkableUrls = config('laravel-menu.linkableUrls', []);
+
+        foreach ($links as $link) {
+            $url = null;
+            $label = null;
+            $linkParts = explode(self::$delimiter, $link, 2);
+
+            if (count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
+                list($id, $class) = $linkParts;
+                $object = $class::find($id);
+                $url = $object->linkableUrl();
+                $label = $object->linkableTitle();
+            } elseif (count($linkParts) === 1 && $link) { // ex: contact
+                $url = route($link);
+                $label = isset($linkableUrls[$link]) ? trans($linkableUrls[$link]) : '';
+            }
+            if ($url && $label) {
+                $linkedItemsOrUrlRoutes[$url] = $label;
+            }
+        }
+
+        asort($linkedItemsOrUrlRoutes);
+
+        return $linkedItemsOrUrlRoutes;
     }
 
     /**
