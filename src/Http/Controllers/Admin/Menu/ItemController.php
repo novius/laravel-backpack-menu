@@ -2,7 +2,7 @@
 
 namespace Novius\Menu\Http\Controllers\Admin\Menu;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Novius\Menu\LinkedItems;
