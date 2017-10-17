@@ -62,24 +62,23 @@ class Item extends Model
     /**
      * Creates an href for the menu item according to its type.
      *
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string url
+     * @return string|null url
      */
     public function href()
     {
         $linkParts = explode(LinkedItems::$delimiter, $this->links, 2);
+        $href = null;
 
         if (count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
             list($id, $class) = $linkParts;
             $object = $class::find($id);
-            $href = $object->linkableUrl();
+            if($object) {
+                $href = $object->linkableUrl();
+            }
         } elseif (count($linkParts) === 1) { // ex: contact
             if ($this->links) {
                 $href = route($this->links);
-            } else {
-                $href = null;
             }
-        } else {
-            $href = '#'; // default case
         }
 
         return $href;
