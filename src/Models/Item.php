@@ -72,7 +72,7 @@ class Item extends Model
         if (count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
             list($id, $class) = $linkParts;
             $object = $class::find($id);
-            if($object) {
+            if ($object) {
                 $href = $object->linkableUrl();
             }
         } elseif (count($linkParts) === 1) { // ex: contact
