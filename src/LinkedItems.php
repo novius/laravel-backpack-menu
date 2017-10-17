@@ -25,7 +25,7 @@ trait LinkedItems
     {
         return static::all()->mapWithKeys(function ($item) use ($prefix) {
             return [
-                implode(static::$delimiter, [$item->id, get_class($item)]) => static::linkableLabel($item->linkableTitle(), $prefix),
+                implode(static::$delimiter, [$item->linkableId(), get_class($item)]) => static::linkableLabel($item->linkableTitle(), $prefix),
             ];
         })->toArray();
     }
@@ -73,6 +73,21 @@ trait LinkedItems
     public function linkableTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Returns the id for the item.
+     * Optionally overridable within items having a primary other than:
+     *  the default "id" primary key.
+     *  the custom primary key defined within the model.
+     *
+     * @return string
+     */
+    public function linkableId()
+    {
+        $primaryKey = $this->getKeyName();
+
+        return $this->{$primaryKey};
     }
 
     /**
