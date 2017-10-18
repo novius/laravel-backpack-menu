@@ -128,12 +128,15 @@ trait LinkedItems
             if (count($linkParts) === 2) { // ex: 23|App\Models\Form\Form
                 list($id, $class) = $linkParts;
                 $object = $class::find($id);
-                $url = $object->linkableUrl();
-                $label = $object->linkableTitle();
+                if ($object) {
+                    $url = $object->linkableUrl();
+                    $label = $object->linkableTitle();
+                }
             } elseif (count($linkParts) === 1 && $link) { // ex: contact
                 $url = route($link);
                 $label = isset($linkableUrls[$link]) ? trans($linkableUrls[$link]) : '';
             }
+
             if ($url && $label) {
                 $linkedItemsOrUrlRoutes[$url] = $label;
             }
