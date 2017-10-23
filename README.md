@@ -55,16 +55,18 @@ use Novius\Menu\LinkedItems;
 
 public static function linkableItems(string $prefix = ''){}
 public function linkableUrl(){}
+public function linkableTitle(){}
 ```
 
 #### Add a link in your sidebar.blade.php file to get access from the backpack backoffice
 
 ```html
-        <li>
-          <a href="{{ route('crud.menu.index') }}">
-            <i class="fa fa-list"></i>
-            <span>{{ trans('laravel-menu::menu.menus') }}</span></a>
-        </li>
+<li>
+  <a href="{{ route('crud.menu.index') }}">
+      <i class="fa fa-list"></i>
+      <span>{{ trans('laravel-menu::menu.menus') }}</span>
+  </a>
+</li>
 ```
 
 #### Create your menus and items. You can reorder and nest the items. The items are related to the current locale. Switch the back-office language to add items for other locales.
