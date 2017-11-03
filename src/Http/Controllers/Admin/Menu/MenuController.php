@@ -1,9 +1,9 @@
 <?php
 
-namespace Novius\Menu\Http\Controllers\Admin\Menu;
+namespace Novius\Backpack\Menu\Http\Controllers\Admin\Menu;
 
 use Novius\Backpack\CRUD\Http\Controllers\CrudController;
-use Novius\Menu\Models\Menu;
+use Novius\Backpack\Menu\Models\Menu;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as UpdateRequest;
 
@@ -12,24 +12,24 @@ class MenuController extends CrudController
     public function setup()
     {
         $this->crud->setModel(Menu::class);
-        $this->crud->setRoute(config('laravel-menu.prefix', 'admin').'/menu');
-        $this->crud->setEntityNameStrings(trans('laravel-menu::menu.menu'), trans('laravel-menu::menu.menus'));
+        $this->crud->setRoute(config('backpack.laravel-backpack-menu.prefix', 'admin').'/menu');
+        $this->crud->setEntityNameStrings(trans('laravel-backpack-menu::menu.menu'), trans('laravel-backpack-menu::menu.menus'));
 
         $this->crud->addColumn([
             'name' => 'name',
-            'label' => trans('laravel-menu::menu.edit.name'),
+            'label' => trans('laravel-backpack-menu::menu.edit.name'),
         ]);
 
-        $this->crud->addButton('line', 'items', 'view', 'laravel-menu::buttons.items', 'beginning');
+        $this->crud->addButton('line', 'items', 'view', 'laravel-backpack-menu::buttons.items', 'beginning');
 
         $this->crud->addField([
             'name' => 'name',
-            'label' => trans('laravel-menu::menu.edit.name'),
+            'label' => trans('laravel-backpack-menu::menu.edit.name'),
         ]);
 
         $this->crud->addField([
             'name' => 'slug',
-            'label' => trans('laravel-menu::menu.edit.slug'),
+            'label' => trans('laravel-backpack-menu::menu.edit.slug'),
             'type' => 'text',
             'attributes' => ['disabled' => 'disabled'],
         ]);

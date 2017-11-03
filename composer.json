@@ -1,5 +1,5 @@
 {
-  "name": "novius/laravel-menu",
+  "name": "novius/laravel-backpack-menu",
   "description": "Manages the editing and rendering of menus in Laravel application using Backpack",
   "keywords": [
     "Novius",
@@ -11,8 +11,9 @@
   "license": "AGPL-3.0",
   "authors": [
     {
-      "name": "Abraham Mesa",
-      "email": "mesa@novius.fr"
+      "name": "Novius Agency",
+      "email": "team-developpeurs@novius.com",
+      "homepage": "http://novius.com"
     }
   ],
   "require": {
@@ -27,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Novius\\Menu\\": "src"
+      "Novius\\Backpack\\Menu\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Novius\\Menu\\Tests\\": "tests"
+      "Novius\\Backpack\\Menu\\Tests\\": "tests"
     }
   },
   "scripts": {

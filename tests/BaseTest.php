@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\Menu\Tests;
+namespace Novius\Backpack\Menu\Tests;
 
 use Orchestra\Testbench\TestCase;
 

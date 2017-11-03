@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\Menu;
+namespace Novius\Backpack\Menu;
 
 /**
  * This trait provides models with some basic overridable behaviour intended for:
@@ -43,13 +43,13 @@ trait LinkedItems
     public static function links()
     {
         $links = [];
-        $linkableObjects = config('laravel-menu.linkableObjects', []);
+        $linkableObjects = config('backpack.laravel-backpack-menu.linkableObjects', []);
         foreach ($linkableObjects as $class => $translation) {
             $items = $class::linkableItems(trans($translation));
             $links = array_merge($links, $items);
         }
 
-        $linkableUrls = config('laravel-menu.linkableUrls', []);
+        $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
         foreach ($linkableUrls as $url => $translation) {
             $items = $class::linkableUrls($url, trans($translation));
             $links = array_merge($links, $items);
@@ -118,7 +118,7 @@ trait LinkedItems
     public static function linkedItemsOrUrlRoutes($links = [])
     {
         $linkedItemsOrUrlRoutes = [];
-        $linkableUrls = config('laravel-menu.linkableUrls', []);
+        $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
 
         foreach ($links as $link) {
             $url = null;
