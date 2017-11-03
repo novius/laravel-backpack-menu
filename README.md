@@ -17,7 +17,7 @@ composer require novius/laravel-backpack-menu
 In `config/app.php`, add:
 
 ```php
-Novius\Backpack\Menu\MenuServiceProvider::class,
+Novius\Backpack\Menu\MenuServiceProvider::class
 ```
 
 Execute:
