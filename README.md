@@ -1,7 +1,7 @@
 # Laravel Backoffice Menu
-[![Travis](https://img.shields.io/travis/novius/laravel-menu.svg?maxAge=1800&style=flat-square)](https://travis-ci.org/novius/laravel-menu)
-[![Packagist Release](https://img.shields.io/packagist/v/novius/laravel-menu.svg?maxAge=1800&style=flat-square)](https://packagist.org/packages/novius/laravel-menu)
-[![Licence](https://img.shields.io/packagist/l/novius/laravel-menu.svg?maxAge=1800&style=flat-square)](https://github.com/novius/laravel-menu#licence)
+[![Travis](https://img.shields.io/travis/novius/laravel-backpack-menu.svg?maxAge=1800&style=flat-square)](https://travis-ci.org/novius/laravel-backpack-menu)
+[![Packagist Release](https://img.shields.io/packagist/v/novius/laravel-backpack-menu.svg?maxAge=1800&style=flat-square)](https://packagist.org/packages/novius/laravel-backpack-menu)
+[![Licence](https://img.shields.io/packagist/l/novius/laravel-backpack-menu.svg?maxAge=1800&style=flat-square)](https://github.com/novius/laravel-backpack-menu#licence)
 
 Manages the editing and rendering of menus in a Laravel - Backpack application.
 
