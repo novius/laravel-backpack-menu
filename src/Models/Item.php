@@ -1,10 +1,10 @@
 <?php
 
-namespace Novius\Menu\Models;
+namespace Novius\Backpack\Menu\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
-use Novius\Menu\LinkedItems;
+use Novius\Backpack\Menu\LinkedItems;
 
 /**
  * @property mixed locale
@@ -48,7 +48,7 @@ class Item extends Model
      */
     public function link()
     {
-        return view('laravel-menu::item', [
+        return view('laravel-backpack-menu::item', [
             'href' => $this->href(),
             'name' => $this->name,
         ]);
@@ -92,7 +92,7 @@ class Item extends Model
      */
     public function nameLabelAccordingToDepth()
     {
-        return view('laravel-menu::item.label', [
+        return view('laravel-backpack-menu::item.label', [
             'depth' => $this->depth ?: 0,
             'name' => $this->name,
         ]);

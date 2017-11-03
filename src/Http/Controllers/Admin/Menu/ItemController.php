@@ -1,15 +1,15 @@
 <?php
 
-namespace Novius\Menu\Http\Controllers\Admin\Menu;
+namespace Novius\Backpack\Menu\Http\Controllers\Admin\Menu;
 
 use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
-use Novius\Menu\LinkedItems;
-use Novius\Menu\Models\Item;
+use Novius\Backpack\Menu\LinkedItems;
+use Novius\Backpack\Menu\Models\Item;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as UpdateRequest;
-use Novius\Menu\Models\Menu;
+use Novius\Backpack\Menu\Models\Menu;
 
 class ItemController extends CrudController
 {
@@ -17,29 +17,29 @@ class ItemController extends CrudController
     {
         $this->crud->setModel(Item::class);
         $this->crud->setRoute(route('crud.item.index'));
-        $this->crud->setEntityNameStrings(trans('laravel-menu::menu.item'), trans('laravel-menu::menu.items'));
+        $this->crud->setEntityNameStrings(trans('laravel-backpack-menu::menu.item'), trans('laravel-backpack-menu::menu.items'));
 
         $this->crud->addFilter([
             'name' => 'id',
             'type' => 'select2',
-            'label' => trans('laravel-menu::menu.menu'),
+            'label' => trans('laravel-backpack-menu::menu.menu'),
         ], function () {
             return Menu::all()->pluck('name', 'id')->toArray();
         }, function ($value) {
             $this->crud->addClause('where', 'menu_id', $value);
         });
 
-        $this->crud->addButton('top', 'menus', 'view', 'laravel-menu::buttons.menus', 'beginning');
+        $this->crud->addButton('top', 'menus', 'view', 'laravel-backpack-menu::buttons.menus', 'beginning');
 
         $this->crud->addColumn([
             'name' => 'name',
-            'label' => trans('laravel-menu::menu.edit.name'),
+            'label' => trans('laravel-backpack-menu::menu.edit.name'),
             'type' => 'model_function',
             'function_name' => 'nameLabelAccordingToDepth',
         ]);
 
         $this->crud->addColumn([
-            'label' => trans('laravel-menu::menu.menu'),
+            'label' => trans('laravel-backpack-menu::menu.menu'),
             'type' => 'select',
             'name' => 'menu_id',
             'entity' => 'menu',
@@ -49,12 +49,12 @@ class ItemController extends CrudController
 
         $this->crud->addField([
             'name' => 'name',
-            'label' => trans('laravel-menu::menu.edit.name'),
+            'label' => trans('laravel-backpack-menu::menu.edit.name'),
         ]);
 
         $this->crud->addField([
             'name' => 'menu_id',
-            'label' => trans('laravel-menu::menu.menu'),
+            'label' => trans('laravel-backpack-menu::menu.menu'),
             'type' => 'select2_from_array',
             'options' => Menu::all()->pluck('name', 'id')->toArray(),
             'allows_null' => false,

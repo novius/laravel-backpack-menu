@@ -3,8 +3,8 @@
  * Defines the routes of Backpack
  */
 Route::group([
-    'namespace' => 'Novius\Menu\Http\Controllers\Admin\Menu',
-    'prefix' => config('laravel-menu.prefix', 'admin'),
+    'namespace' => 'Novius\Backpack\Menu\Http\Controllers\Admin\Menu',
+    'prefix' => config('backpack.laravel-backpack-menu.prefix', 'admin'),
     'middleware' => ['web', 'admin'],
 ], function () {
     CRUD::resource('menu', 'MenuController');

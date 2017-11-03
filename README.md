@@ -3,7 +3,7 @@
 [![Packagist Release](https://img.shields.io/packagist/v/novius/laravel-menu.svg?maxAge=1800&style=flat-square)](https://packagist.org/packages/novius/laravel-menu)
 [![Licence](https://img.shields.io/packagist/l/novius/laravel-menu.svg?maxAge=1800&style=flat-square)](https://github.com/novius/laravel-menu#licence)
 
-Manages the editing and rendering of menus in a laravel - backpack application.
+Manages the editing and rendering of menus in a Laravel - Backpack application.
 
 
 ## Installation
@@ -11,22 +11,23 @@ Manages the editing and rendering of menus in a laravel - backpack application.
 In your terminal:
 
 ```sh
-composer require novius/laravel-menu
+composer require novius/laravel-backpack-menu
 ```
 
 In `config/app.php`, add:
 
 ```php
-Novius\Menu\MenuServiceProvider::class,
+Novius\Backpack\Menu\MenuServiceProvider::class
 ```
 
 Execute:
 ```bash
-php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="routes"
-php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="lang"
-php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="migrations"
-php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="views"
-php artisan vendor:publish --provider="Novius\Menu\MenuServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="routes"
+php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="lang"
+php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="views"
+php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="config"
+
 php artisan migrate
 ```
 
@@ -39,17 +40,20 @@ You can display the menu within your view like this:
 //  1. Slug => Identifies the menu
 //  2. Locale => (Optional) Force a locale version of the menu.
 
-\Novius\Menu\Models\Menu::display('header', 'en');
+\Novius\Backpack\Menu\Models\Menu::display('header', 'en');
 ```
 
 To achieve that, first you need:
 
-#### Configure the package. Take a look at the comments in laravel-menu/config/laravel-menu.php
+#### Configure the package. Take a look at the comments in:
+```
+/config/laravel-backpack-menu.php
+```
 
 #### Use the trait _LinkedItems_ in the models you listed in the _linkableObjects_ configuration
 
 ```php
-use Novius\Menu\LinkedItems;
+use Novius\Backpack\Menu\LinkedItems;
 
 // And optionally overrides the base functionality to suit your needs:
 
@@ -64,7 +68,7 @@ public function linkableTitle(){}
 <li>
   <a href="{{ route('crud.menu.index') }}">
       <i class="fa fa-list"></i>
-      <span>{{ trans('laravel-menu::menu.menus') }}</span>
+      <span>{{ trans('laravel-backpack-menu::menu.menus') }}</span>
   </a>
 </li>
 ```
@@ -79,7 +83,6 @@ Run the tests with:
 ./test.sh
 ```
 
-
 ## Lint
 
 Run php-cs with:
@@ -87,7 +90,6 @@ Run php-cs with:
 ```sh
 ./cs.sh
 ```
-
 
 ## Contributing
 
@@ -98,3 +100,4 @@ Leave an issue on Github, or create a Pull Request.
 ## Licence
 
 This package is under [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.html) or (at your option) any later version.
+  

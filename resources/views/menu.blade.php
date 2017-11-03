@@ -12,7 +12,7 @@
             @if($item->hasChildren())
                 <?php $children = $item->children()->get()->keyBy('id'); ?>
                 @if($children->isNotEmpty())
-                    <?php echo view('laravel-menu::menu', ['items' => $children]) ?>
+                    <?php echo view('laravel-backpack-menu::menu', ['items' => $children]) ?>
                 @endif
             @endif
         </li>

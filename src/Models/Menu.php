@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\Menu\Models;
+namespace Novius\Backpack\Menu\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
@@ -68,6 +68,6 @@ class Menu extends Model
                     ->get()
                     ->keyBy('id');
 
-        return view('laravel-menu::menu', ['items' => $items]);
+        return view('laravel-backpack-menu::menu', ['items' => $items]);
     }
 }

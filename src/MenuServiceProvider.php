@@ -1,12 +1,12 @@
 <?php
 
-namespace Novius\Menu;
+namespace Novius\Backpack\Menu;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class MenuServiceProvider extends LaravelServiceProvider
 {
-    const PACKAGE_NAME = 'laravel-menu';
+    const PACKAGE_NAME = 'laravel-backpack-menu';
 
     /**
      * Perform post-registration booting of services.
@@ -17,29 +17,16 @@ class MenuServiceProvider extends LaravelServiceProvider
     {
         $packageDir = dirname(__DIR__);
 
-        $configPath = $packageDir.'/config/'.static::PACKAGE_NAME.'.php';
-        $configTargetPath = config_path(static::PACKAGE_NAME.'.php');
-        $this->publishes([$configPath => $configTargetPath], 'config');
-
-        $translationPath = $packageDir.'/resources/lang';
-        $translationTargetPath = resource_path('lang/vendor/'.static::PACKAGE_NAME);
-        $this->publishes([$translationPath => $translationTargetPath], 'lang');
-
-        $viewsPath = $packageDir.'/resources/views';
+        $this->publishes([$packageDir.'/config' => config_path('backpack')], 'config');
+        $this->publishes([$packageDir.'/resources/lang' => resource_path('lang/vendor/backpack')], 'lang');
+        $this->publishes([$packageDir.'/routes' => base_path().'/routes'], 'routes');
         $viewsTargetPath = resource_path('views/vendor/'.static::PACKAGE_NAME);
-        $this->publishes([$viewsPath => $viewsTargetPath], 'views');
-
-        $routesPath = $packageDir.'/routes/backpack/'.static::PACKAGE_NAME.'.php';
-        $routesTargetPath = base_path().'/routes/backpack/'.static::PACKAGE_NAME.'.php';
-        $this->publishes([$routesPath => $routesTargetPath], 'routes');
-
-        $migrationsPath = $packageDir.'/database/migrations';
-        $migrationsTargetPath = database_path('migrations');
-        $this->publishes([$migrationsPath => $migrationsTargetPath], 'migrations');
+        $this->publishes([$packageDir.'/resources/views' => $viewsTargetPath], 'views');
+        $this->publishes([$packageDir.'/database/migrations' => database_path('migrations')], 'migrations');
 
         $this->loadMigrationsFrom($packageDir.'/database/migrations');
-        $this->loadTranslationsFrom($translationPath, static::PACKAGE_NAME);
-        $this->loadViewsFrom($viewsPath, static::PACKAGE_NAME);
+        $this->loadTranslationsFrom($packageDir.'/resources/lang', static::PACKAGE_NAME);
+        $this->loadViewsFrom($packageDir.'/resources/views', static::PACKAGE_NAME);
     }
 
     /**
@@ -53,8 +40,8 @@ class MenuServiceProvider extends LaravelServiceProvider
     }
 
     /**
-     * By default the package uses its own routes defined in /routes/backpack/laravel-menu.php
-     * But you can easily override these routes by placing a file in your application /routes/backpack/laravel-menu.php
+     * By default the package uses its own routes defined in /routes/backpack/menu.php
+     * But you can easily override these routes by placing a file in your application /routes/backpack/menu.php
      */
     protected function setupRoutes()
     {
