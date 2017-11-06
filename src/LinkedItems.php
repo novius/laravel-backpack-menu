@@ -117,6 +117,10 @@ trait LinkedItems
      */
     public static function linkedItemsOrUrlRoutes($links = [])
     {
+        if (empty($links)) {
+            return;
+        }
+
         $linkedItemsOrUrlRoutes = [];
         $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
 
