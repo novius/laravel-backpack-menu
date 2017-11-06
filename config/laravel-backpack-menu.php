@@ -38,4 +38,9 @@ return [
     'linkableUrls' => [
 
     ],
+
+    /*
+     * Maximum hierarchy level to which the elements can be nested
+     */
+    'max_nesting' => 2,
 ];

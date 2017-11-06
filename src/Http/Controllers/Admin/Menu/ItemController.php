@@ -102,7 +102,7 @@ class ItemController extends CrudController
     protected function configureReorder()
     {
         $this->crud->allowAccess('reorder');
-        $this->crud->enableReorder('name', 5);
+        $this->crud->enableReorder('name', config('backpack.laravel-backpack-menu.max_nesting', 5));
         $this->crud->setReorderRoute('crud.item.index', ['id' => request('id')]);
 
         // The correct way if the PR is accepted https://github.com/Laravel-Backpack/CRUD/pull/932
