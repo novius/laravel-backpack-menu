@@ -118,7 +118,7 @@ trait LinkedItems
     public static function linkedItemsOrUrlRoutes(array $links)
     {
         if (empty($links)) {
-            return;
+            return [];
         }
 
         $linkedItemsOrUrlRoutes = [];
