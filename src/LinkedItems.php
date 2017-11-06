@@ -115,7 +115,7 @@ trait LinkedItems
      * @param array $links an array of linkableItems and/or linkableUrls
      * @return array An array of url => label
      */
-    public static function linkedItemsOrUrlRoutes($links = [])
+    public static function linkedItemsOrUrlRoutes(array $links)
     {
         if (empty($links)) {
             return;
