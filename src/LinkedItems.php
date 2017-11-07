@@ -21,7 +21,7 @@ trait LinkedItems
      * @param string $prefix Label prefix
      * @return mixed
      */
-    public static function linkableItems(string $prefix = '')
+    public static function linkableItems(string $prefix = ''): array
     {
         return static::all()->mapWithKeys(function ($item) use ($prefix) {
             return [
@@ -30,7 +30,7 @@ trait LinkedItems
         })->toArray();
     }
 
-    public static function linkableUrls($url, $translation)
+    public static function linkableUrls($url, $translation): array
     {
         return [$url => $translation];
     }
@@ -40,7 +40,7 @@ trait LinkedItems
      *
      * @return array
      */
-    public static function links()
+    public static function links(): array
     {
         $links = [];
         $linkableObjects = config('backpack.laravel-backpack-menu.linkableObjects', []);
@@ -60,7 +60,7 @@ trait LinkedItems
         return $links;
     }
 
-    public function linkableUrl()
+    public function linkableUrl(): string
     {
         return url($this->slug);
     }
@@ -70,7 +70,7 @@ trait LinkedItems
      * Optionally overridable within items having no title (for instance name)
      * @return string
      */
-    public function linkableTitle()
+    public function linkableTitle(): string
     {
         return $this->title;
     }
@@ -83,7 +83,7 @@ trait LinkedItems
      *
      * @return string
      */
-    public function linkableId()
+    public function linkableId(): string
     {
         $primaryKey = $this->getKeyName();
 
@@ -98,7 +98,7 @@ trait LinkedItems
      * @param string $link
      * @return array
      */
-    public static function linkedItem(string $link)
+    public static function linkedItem(string $link): array
     {
         list($id, $class) = explode(self::$delimiter, $link);
         $linkedItem = $class::find($id);
@@ -115,7 +115,7 @@ trait LinkedItems
      * @param array $links an array of linkableItems and/or linkableUrls
      * @return array An array of url => label
      */
-    public static function linkedItemsOrUrlRoutes(array $links)
+    public static function linkedItemsOrUrlRoutes(array $links): array
     {
         if (empty($links)) {
             return [];
@@ -158,7 +158,7 @@ trait LinkedItems
      * @param $prefix
      * @return string
      */
-    protected static function linkableLabel($name, $prefix)
+    protected static function linkableLabel($name, $prefix): string
     {
         $label = $name;
 
