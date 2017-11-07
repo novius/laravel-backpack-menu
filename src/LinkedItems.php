@@ -19,9 +19,9 @@ trait LinkedItems
      * Returns an array of linkable items.
      *
      * @param string $prefix Label prefix
-     * @return mixed
+     * @return array
      */
-    public static function linkableItems(string $prefix = '')
+    public static function linkableItems(string $prefix = ''): array
     {
         return static::all()->mapWithKeys(function ($item) use ($prefix) {
             return [
@@ -30,7 +30,7 @@ trait LinkedItems
         })->toArray();
     }
 
-    public static function linkableUrls($url, $translation)
+    public static function linkableUrls($url, $translation): array
     {
         return [$url => $translation];
     }
@@ -40,7 +40,7 @@ trait LinkedItems
      *
      * @return array
      */
-    public static function links()
+    public static function links(): array
     {
         $links = [];
         $linkableObjects = config('backpack.laravel-backpack-menu.linkableObjects', []);
@@ -98,7 +98,7 @@ trait LinkedItems
      * @param string $link
      * @return array
      */
-    public static function linkedItem(string $link)
+    public static function linkedItem(string $link): array
     {
         list($id, $class) = explode(self::$delimiter, $link);
         $linkedItem = $class::find($id);
@@ -115,8 +115,12 @@ trait LinkedItems
      * @param array $links an array of linkableItems and/or linkableUrls
      * @return array An array of url => label
      */
-    public static function linkedItemsOrUrlRoutes($links = [])
+    public static function linkedItemsOrUrlRoutes(array $links): array
     {
+        if (empty($links)) {
+            return [];
+        }
+
         $linkedItemsOrUrlRoutes = [];
         $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
 
