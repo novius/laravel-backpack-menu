@@ -19,7 +19,7 @@ trait LinkedItems
      * Returns an array of linkable items.
      *
      * @param string $prefix Label prefix
-     * @return mixed
+     * @return array
      */
     public static function linkableItems(string $prefix = ''): array
     {
@@ -60,7 +60,7 @@ trait LinkedItems
         return $links;
     }
 
-    public function linkableUrl(): string
+    public function linkableUrl()
     {
         return url($this->slug);
     }
@@ -70,7 +70,7 @@ trait LinkedItems
      * Optionally overridable within items having no title (for instance name)
      * @return string
      */
-    public function linkableTitle(): string
+    public function linkableTitle()
     {
         return $this->title;
     }
@@ -83,7 +83,7 @@ trait LinkedItems
      *
      * @return string
      */
-    public function linkableId(): string
+    public function linkableId()
     {
         $primaryKey = $this->getKeyName();
 
@@ -158,7 +158,7 @@ trait LinkedItems
      * @param $prefix
      * @return string
      */
-    protected static function linkableLabel($name, $prefix): string
+    protected static function linkableLabel($name, $prefix)
     {
         $label = $name;
 
