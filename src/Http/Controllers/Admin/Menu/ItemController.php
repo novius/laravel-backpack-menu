@@ -4,7 +4,6 @@ namespace Novius\Backpack\Menu\Http\Controllers\Admin\Menu;
 
 use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Input;
 use Novius\Backpack\Menu\LinkedItems;
 use Novius\Backpack\Menu\Models\Item;
 use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
