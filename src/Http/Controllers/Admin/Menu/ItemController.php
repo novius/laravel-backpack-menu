@@ -15,21 +15,30 @@ class ItemController extends CrudController
 {
     public function setup()
     {
+        $menuId = Request::input('menu');
+
         $this->crud->setModel(Item::class);
-        $this->crud->setRoute(route('crud.item.index'));
+        $this->crud->setRoute(route('crud.item.index', ['menu' => $menuId]));
         $this->crud->setEntityNameStrings(trans('laravel-backpack-menu::menu.item'), trans('laravel-backpack-menu::menu.items'));
+        $this->crud->setEditView('laravel-backpack-menu::edit');
 
         $this->crud->addFilter([
-            'name' => 'id',
+            'name' => 'menu',
             'type' => 'select2',
             'label' => trans('laravel-backpack-menu::menu.menu'),
+            'value' => $menuId,
         ], function () {
             return Menu::all()->pluck('name', 'id')->toArray();
         }, function ($value) {
             $this->crud->addClause('where', 'menu_id', $value);
         });
 
+        $this->crud->addButton('top', 'create', 'view', 'laravel-backpack-menu::buttons.create', 'beginning');
         $this->crud->addButton('top', 'menus', 'view', 'laravel-backpack-menu::buttons.menus', 'beginning');
+        $this->crud->addButton('top', 'reorder', 'view', 'laravel-backpack-menu::buttons.reorder', 'end');
+
+        $this->crud->addButton('line', 'update', 'view', 'laravel-backpack-menu::buttons.update');
+        $this->crud->addButton('line', 'delete', 'view', 'laravel-backpack-menu::buttons.delete');
 
         $this->crud->addColumn([
             'name' => 'name',
@@ -56,6 +65,7 @@ class ItemController extends CrudController
         $this->crud->addField([
             'name' => 'menu_id',
             'label' => trans('laravel-backpack-menu::menu.menu'),
+            'value' => $menuId ?: null,
             'type' => 'select2_from_array',
             'options' => Menu::all()->pluck('name', 'id')->toArray(),
             'allows_null' => false,
@@ -85,18 +95,38 @@ class ItemController extends CrudController
         ]);
 
         $this->crud->query->where('locale', App::getLocale());
+        $this->crud->query->where('menu_id', $menuId);
         $this->crud->orderBy('menu_id');
         $this->crud->orderBy('lft');
 
         $this->configureReorder();
     }
 
-    public function edit($id)
+    /**
+     * Adds the menu id to be injected in the html.
+     * Removes options from saveActions menu.
+     *
+     * @return array
+     */
+    public function getSaveAction()
     {
-        $item = Item::find($id);
-        $this->crud->setIndexRoute('crud.item.index', ['id' => $item->menu_id]);
+        $saveAction = parent::getSaveAction();
+        $saveAction['active']['value'] = Request::input('menu');
+        unset($saveAction['options']);
 
-        return parent::edit($id);
+        return $saveAction;
+    }
+    /**
+     * Adds the menu id to the save action url
+     *
+     * @param null $itemId
+     * @return mixed
+     */
+    public function performSaveAction($itemId = null)
+    {
+        $menu = \Request::input('save_action', config('backpack.crud.default_save_action', 'save_and_back'));
+
+        return \Redirect::to( route('crud.item.index').'?menu='.$menu);
     }
 
     public function store(StoreRequest $request)
@@ -128,7 +158,7 @@ class ItemController extends CrudController
      */
     public function reorder()
     {
-        $this->crud->query = $this->crud->query->where('menu_id', request('id'));
+        $this->crud->query = $this->crud->query->where('menu_id', request('menu'));
 
         return parent::reorder();
     }
@@ -137,6 +167,6 @@ class ItemController extends CrudController
     {
         $this->crud->allowAccess('reorder');
         $this->crud->enableReorder('name', config('backpack.laravel-backpack-menu.max_nesting', 5));
-        $this->crud->setReorderRoute('crud.item.index', ['id' => request('id')]);
+        $this->crud->setReorderRoute('crud.item.index', ['menu' => request('menu')]);
     }
 }
