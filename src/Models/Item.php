@@ -75,9 +75,10 @@ class Item extends Model
             if ($object) {
                 $href = $object->linkableUrl();
             }
-        } elseif (count($linkParts) === 1) { // ex: contact
+        } elseif (count($linkParts) === 1) { // ex: contact or http://google.es
+            $isUrl = filter_var($this->links, FILTER_VALIDATE_URL) !== false;
             if ($this->links) {
-                $href = route($this->links);
+                $href = $isUrl ? $this->links : route($this->links);
             }
         }
 
