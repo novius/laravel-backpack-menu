@@ -2,6 +2,7 @@
 
 namespace Novius\Backpack\Menu\Http\Controllers\Admin\Menu;
 
+use Illuminate\Support\Facades\Request;
 use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 use Novius\Backpack\Menu\LinkedItems;
@@ -49,6 +50,7 @@ class ItemController extends CrudController
         $this->crud->addField([
             'name' => 'name',
             'label' => trans('laravel-backpack-menu::menu.edit.name'),
+            'box' => trans('laravel-backpack-menu::menu.box.properties'),
         ]);
 
         $this->crud->addField([
@@ -58,15 +60,28 @@ class ItemController extends CrudController
             'options' => Menu::all()->pluck('name', 'id')->toArray(),
             'allows_null' => false,
             'allows_multiple' => false,
+            'box' => trans('laravel-backpack-menu::menu.box.properties'),
         ]);
 
+        list($internalLinkValue, $externalLinkValue) = Item::getLinksValues(Request::route('item'));
+
         $this->crud->addField([
-            'name' => 'links',
-            'label' => 'Link',
+            'name' => 'internal_link',
+            'label' => trans('laravel-backpack-menu::menu.internal_link'),
+            'value' => $internalLinkValue,
             'type' => 'select2_from_array',
             'options' => LinkedItems::links(),
             'allows_null' => true,
             'allows_multiple' => false,
+            'box' => implode('. ', [trans('laravel-backpack-menu::menu.box.links.label'), trans('laravel-backpack-menu::menu.box.links.description')]),
+        ]);
+
+        $this->crud->addField([   // URL
+            'name' => 'external_link',
+            'label' => trans('laravel-backpack-menu::menu.external_link'),
+            'value' => $externalLinkValue,
+            'type' => 'url',
+            'box' => implode('. ', [trans('laravel-backpack-menu::menu.box.links.label'), trans('laravel-backpack-menu::menu.box.links.description')]),
         ]);
 
         $this->crud->query->where('locale', App::getLocale());
@@ -86,16 +101,24 @@ class ItemController extends CrudController
 
     public function store(StoreRequest $request)
     {
-        $request->request->set('locale', App::getLocale());
+        $this->feedModel($request);
 
         return parent::storeCrud($request);
     }
 
     public function update(UpdateRequest $request)
     {
-        $request->request->set('locale', App::getLocale());
+        $this->feedModel($request);
 
         return parent::updateCrud($request);
+    }
+
+    protected function feedModel($request)
+    {
+        $request->request->set('locale', App::getLocale());
+        $internalLink = $request->request->get('internal_link');
+        $externalLink = $request->request->get('external_link');
+        $request->request->set('links', $internalLink ?: $externalLink);
     }
 
     /**

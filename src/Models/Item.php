@@ -97,4 +97,29 @@ class Item extends Model
             'name' => $this->name,
         ]);
     }
+
+    /**
+     * Feeds the fields internal_link and external_link in back-office.
+     * Determines if the value stored in the "links" attribute is external or internal and returns both.
+     *
+     * @param $itemId
+     * @return array
+     */
+    public static function getLinksValues($itemId)
+    {
+        $internalLinkValue = null;
+        $externalLinkValue = null;
+        $item = $itemId ? self::find($itemId) : null;
+
+        if ($item) {
+            $links = $item->links;
+            $linkIsLabel = empty($links);
+            $linkIsExternal = filter_var($links, FILTER_VALIDATE_URL) !== false;
+            $linkIsInternal = !$linkIsExternal && !$linkIsLabel;
+            $internalLinkValue = $itemId && $linkIsInternal ? $links : null;
+            $externalLinkValue = $itemId && $linkIsExternal ? $links : null;
+        }
+
+        return [$internalLinkValue, $externalLinkValue];
+    }
 }

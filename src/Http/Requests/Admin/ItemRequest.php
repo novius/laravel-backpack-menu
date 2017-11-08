@@ -16,6 +16,7 @@ class ItemRequest extends CrudRequest
         return [
             'name' => 'required',
             'menu_id' => 'required',
+            'external_link' => 'nullable|url',
         ];
     }
 }
