@@ -115,7 +115,7 @@ class Item extends Model
             $links = $item->links;
             $linkIsLabel = empty($links);
             $linkIsExternal = filter_var($links, FILTER_VALIDATE_URL) !== false;
-            $linkIsInternal = !$linkIsExternal && !$linkIsLabel;
+            $linkIsInternal = ! $linkIsExternal && ! $linkIsLabel;
             $internalLinkValue = $itemId && $linkIsInternal ? $links : null;
             $externalLinkValue = $itemId && $linkIsExternal ? $links : null;
         }
