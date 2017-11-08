@@ -99,25 +99,22 @@ class ItemController extends CrudController
         return parent::updateCrud($request);
     }
 
+    /**
+     * Filters items of a concrete menu before reordering
+     *
+     * @return \Backpack\CRUD\app\Http\Controllers\CrudFeatures\Response
+     */
+    public function reorder()
+    {
+        $this->crud->query = $this->crud->query->where('menu_id', request('id'));
+
+        return parent::reorder();
+    }
+
     protected function configureReorder()
     {
         $this->crud->allowAccess('reorder');
         $this->crud->enableReorder('name', config('backpack.laravel-backpack-menu.max_nesting', 5));
         $this->crud->setReorderRoute('crud.item.index', ['id' => request('id')]);
-
-        // The correct way if the PR is accepted https://github.com/Laravel-Backpack/CRUD/pull/932
-        // $this->setReorderFilterCallback(function(){});
-
-        // Alternate way avoiding extension of CrudController in Novius Backpack extended
-        // (overriding the view Reorder)
-        $this->data['reorder_filter_callback'] = function ($value, $key) {
-            $isValid = true;
-            $menu_id = (int) Input::get('id');
-            if ($menu_id) {
-                $isValid = $value->menu_id == $menu_id;
-            }
-
-            return $isValid;
-        };
     }
 }
