@@ -16,7 +16,7 @@ return [
         'properties' => 'Propriétés',
         'links' => [
             'label' => 'Liens',
-            'description' => 'Un lien interne a la préférence sur un lien externe.',
+            'description' => 'Un lien interne est prioritaire par rapport à un lien externe.',
         ],
     ],
 ];
