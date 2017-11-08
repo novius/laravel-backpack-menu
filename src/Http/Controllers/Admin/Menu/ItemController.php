@@ -6,8 +6,8 @@ use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 use Novius\Backpack\Menu\LinkedItems;
 use Novius\Backpack\Menu\Models\Item;
-use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
-use Backpack\CRUD\app\Http\Requests\CrudRequest as UpdateRequest;
+use Novius\Backpack\Menu\Http\Requests\Admin\ItemRequest as StoreRequest;
+use Novius\Backpack\Menu\Http\Requests\Admin\ItemRequest as UpdateRequest;
 use Novius\Backpack\Menu\Models\Menu;
 
 class ItemController extends CrudController
