@@ -4,8 +4,8 @@ namespace Novius\Backpack\Menu\Http\Controllers\Admin\Menu;
 
 use Novius\Backpack\CRUD\Http\Controllers\CrudController;
 use Novius\Backpack\Menu\Models\Menu;
-use Backpack\CRUD\app\Http\Requests\CrudRequest as StoreRequest;
-use Backpack\CRUD\app\Http\Requests\CrudRequest as UpdateRequest;
+use Novius\Backpack\Menu\Http\Requests\Admin\MenuRequest as StoreRequest;
+use Novius\Backpack\Menu\Http\Requests\Admin\MenuRequest as UpdateRequest;
 
 class MenuController extends CrudController
 {
