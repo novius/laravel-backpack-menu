@@ -126,7 +126,7 @@ class ItemController extends CrudController
     {
         $menu = \Request::input('save_action', config('backpack.crud.default_save_action', 'save_and_back'));
 
-        return \Redirect::to( route('crud.item.index').'?menu='.$menu);
+        return \Redirect::to(route('crud.item.index').'?menu='.$menu);
     }
 
     public function store(StoreRequest $request)
