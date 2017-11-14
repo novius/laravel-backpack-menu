@@ -75,9 +75,10 @@ class Item extends Model
             if ($object) {
                 $href = $object->linkableUrl();
             }
-        } elseif (count($linkParts) === 1) { // ex: contact
+        } elseif (count($linkParts) === 1) { // ex: contact or http://google.es
+            $isUrl = filter_var($this->links, FILTER_VALIDATE_URL) !== false;
             if ($this->links) {
-                $href = route($this->links);
+                $href = $isUrl ? $this->links : route($this->links);
             }
         }
 
@@ -96,5 +97,30 @@ class Item extends Model
             'depth' => $this->depth ?: 0,
             'name' => $this->name,
         ]);
+    }
+
+    /**
+     * Feeds the fields internal_link and external_link in back-office.
+     * Determines if the value stored in the "links" attribute is external or internal and returns both.
+     *
+     * @param $itemId
+     * @return array
+     */
+    public static function getLinksValues($itemId)
+    {
+        $internalLinkValue = null;
+        $externalLinkValue = null;
+        $item = $itemId ? self::find($itemId) : null;
+
+        if ($item) {
+            $links = $item->links;
+            $linkIsLabel = empty($links);
+            $linkIsExternal = filter_var($links, FILTER_VALIDATE_URL) !== false;
+            $linkIsInternal = ! $linkIsExternal && ! $linkIsLabel;
+            $internalLinkValue = $itemId && $linkIsInternal ? $links : null;
+            $externalLinkValue = $itemId && $linkIsExternal ? $links : null;
+        }
+
+        return [$internalLinkValue, $externalLinkValue];
     }
 }
