@@ -5,4 +5,3 @@
     @include('crud::form_content', ['fields' => $fields, 'action' => 'edit', 'entry' => $entry])
     {!! Form::close() !!}
 @endsection
-k
