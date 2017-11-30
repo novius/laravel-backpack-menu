@@ -24,8 +24,11 @@ trait LinkedItems
     public static function linkableItems(string $prefix = ''): array
     {
         return static::all()->mapWithKeys(function ($item) use ($prefix) {
+            $objectId = implode(static::$delimiter, [$item->linkableId(), get_class($item)]);
+            $title = static::linkableLabel($item->linkableTitle(), $prefix);
+
             return [
-                implode(static::$delimiter, [$item->linkableId(), get_class($item)]) => static::linkableLabel($item->linkableTitle(), $prefix),
+                $objectId => $title,
             ];
         })->toArray();
     }
@@ -51,7 +54,7 @@ trait LinkedItems
 
         $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
         foreach ($linkableUrls as $url => $translation) {
-            $items = $class::linkableUrls($url, trans($translation));
+            $items = static::linkableUrls($url, trans($translation));
             $links = array_merge($links, $items);
         }
 
@@ -168,4 +171,6 @@ trait LinkedItems
 
         return $label;
     }
+
+    abstract public static function all($columns = ['*']);
 }

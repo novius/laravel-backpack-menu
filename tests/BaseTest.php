@@ -2,23 +2,53 @@
 
 namespace Novius\Backpack\Menu\Tests;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
+use Novius\Backpack\Menu\LinkedItems;
 use Orchestra\Testbench\TestCase;
 
-class BaseTest extends TestCase
+class LinkedItemsTraitTest extends TestCase
 {
-    protected function getPackageProviders($app)
+
+    public function testLinkableItemsShouldReturnACollectionOfWellFormedItems()
     {
-        return [
-        ];
+        $double = \Mockery::mock(LinkedItems::class);
+        $double->allows()->all()->andReturns($this->generateDummies(3));
+        $linkableItems = $double::linkableItems();
+        $this->assertCount(3, $linkableItems);
+
+        foreach ($linkableItems as $objectId => $title) {
+            $this->assertCount(2, explode(LinkedItems::$delimiter, $objectId));
+            $this->assertNotNull($title);
+        }
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    protected function generateDummies($quantity = 1) : Collection
     {
-        $this->assertTrue(true);
+        $dummies = [];
+
+        while ($quantity > 0) {
+            $dummyDouble = \Mockery::mock(Dummy::class);
+            $dummyDouble->allows()->linkableId()->andReturns(random_int(1,10000));
+            $dummyDouble->allows()->linkableTitle()->andReturns(str_random());
+            $dummies[] = $dummyDouble;
+            $quantity--;
+        }
+
+        return collect($dummies);
+    }
+
+    protected function setConfig()
+    {
+        Config::set('backpack.laravel-backpack-menu', [
+            'prefix' => 'admin',
+            'linkableObjects' => [
+                'App\Models\Test\ObjectUnderTest' => 'ObjectUnderTest',
+            ],
+            'linkableUrls' => [
+                'contact' => 'Page contact'
+            ],
+            'max_nesting' => 2,
+        ]);
     }
 }
