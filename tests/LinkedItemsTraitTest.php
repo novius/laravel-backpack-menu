@@ -56,7 +56,7 @@ class LinkedItemsTraitTest extends TestCase
     public function testLinksReturnsAWellFormedLinkedItemValue()
     {
         $links = $this->linkedItem::links();
-        $linkableObjectValues = explode('-',reset($links));
+        $linkableObjectValues = explode('-', reset($links));
         $this->assertCount(2, $linkableObjectValues);
         $this->assertEquals('Dummy object ', $linkableObjectValues[0]);
     }
@@ -112,7 +112,7 @@ class LinkedItemsTraitTest extends TestCase
     public static function generateDummy()
     {
         $dummyDouble = \Mockery::mock(Dummy::class);
-        $dummyDouble->allows()->linkableId()->andReturns(random_int(1,10000));
+        $dummyDouble->allows()->linkableId()->andReturns(random_int(1, 10000));
         $dummyDouble->allows()->linkableTitle()->andReturns(str_random());
         $dummyDouble->allows()->linkableUrl()->andReturns('http://google.es');
 
@@ -130,7 +130,7 @@ class LinkedItemsTraitTest extends TestCase
                 'Novius\Backpack\Menu\Tests\Dummy' => 'Dummy object',
             ],
             'linkableRoutes' => [
-                'contact' => 'Page contact'
+                'contact' => 'Page contact',
             ],
             'max_nesting' => 2,
         ]);
@@ -141,6 +141,7 @@ class LinkedItemsTraitTest extends TestCase
      */
     private function setRoutes()
     {
-        Route::get('contact', function () {})->name('contact');
+        Route::get('contact', function () {
+        })->name('contact');
     }
 }
