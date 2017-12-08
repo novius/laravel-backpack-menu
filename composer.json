@@ -18,14 +18,14 @@
   ],
   "require": {
     "php": ">=7.1",
-    "laravel/framework": "~5.4.0|~5.5.0",
-    "novius/laravel-backpack-crud-extended": "~0.2.3"
+    "laravel/framework": "~5.5.0",
+    "novius/laravel-backpack-crud-extended": "~0.3.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "~2.5.0",
+    "friendsofphp/php-cs-fixer": "~2.8.0",
     "mockery/mockery": "^1.0",
-    "orchestra/testbench": "~3.0",
-    "phpunit/phpunit": "~5.7"
+    "orchestra/testbench": "~3.5",
+    "phpunit/phpunit": "~6.0"
   },
   "autoload": {
     "psr-4": {
@@ -48,7 +48,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Novius\\Menu\\MenuServiceProvider"
+        "Novius\\Backpack\\Menu\\MenuServiceProvider"
       ]
     }
   },
