@@ -20,7 +20,7 @@ return [
      */
 
     'linkableObjects' => [
-        'App\Models\Page' => 'Page',
+        \App\Models\Page::class => 'Page',
     ],
 
     /*
