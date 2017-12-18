@@ -95,7 +95,7 @@ trait LinkedItems
      *
      * @return array
      */
-    final public static function links(): array
+    public static function links(): array
     {
         $links = [];
         $linkableObjects = config('backpack.laravel-backpack-menu.linkableObjects', []);
@@ -123,7 +123,7 @@ trait LinkedItems
      * @param string $link It is the linkable item id stored in the database for a menu item.
      * @return array
      */
-    final public static function linkedItem(string $link): array
+    public static function linkedItem(string $link): array
     {
         list($id, $class) = explode(self::$delimiter, $link);
         $linkedItem = $class::find($id);
@@ -141,7 +141,7 @@ trait LinkedItems
      * @param array $links an array of linkableItems and/or linkableRoutes
      * @return array An array of url => label
      */
-    final public static function linkedItemsOrUrlRoutes(array $links): array
+    public static function linkedItemsOrUrlRoutes(array $links): array
     {
         if (empty($links)) {
             return [];
@@ -184,7 +184,7 @@ trait LinkedItems
      * @param $prefix
      * @return string
      */
-    final public static function linkableLabel(string $name, string $prefix = ''): string
+    public static function linkableLabel(string $name, string $prefix = ''): string
     {
         $label = $name;
 
