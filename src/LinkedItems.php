@@ -8,7 +8,10 @@ namespace Novius\Backpack\Menu;
  *  - Storing ids and class names of related linkable items (Pages, forms...).
  *  - Storing urls of linkable items.
  *
+ * This is used for building the menu links in front office.
+ *
  * Trait LinkedItems
+ *
  * @package App
  */
 trait LinkedItems
@@ -16,27 +19,79 @@ trait LinkedItems
     public static $delimiter = '|';
 
     /**
-     * Returns an array of linkable items.
+     * Returns an array of well-formed linkable items.
+     * Check out the config file or the readme file to know more about linkable items.
      *
+     * @overridable
      * @param string $prefix Label prefix
      * @return array
      */
     public static function linkableItems(string $prefix = ''): array
     {
         return static::all()->mapWithKeys(function ($item) use ($prefix) {
+            $objectId = implode(static::$delimiter, [$item->linkableId(), get_class($item)]);
+            $title = static::linkableLabel($item->linkableTitle(), $prefix);
+
             return [
-                implode(static::$delimiter, [$item->linkableId(), get_class($item)]) => static::linkableLabel($item->linkableTitle(), $prefix),
+                $objectId => $title,
             ];
         })->toArray();
     }
 
-    public static function linkableUrls($url, $translation): array
+    /**
+     * Returns an array of well-formed linkable route.
+     * Check out the config file or the readme file to know more about linkable routes.
+     *
+     * @overridable
+     * @param $routeName
+     * @param $translation
+     * @return array
+     */
+    public static function linkableRoute(string $routeName, string $translation): array
     {
-        return [$url => $translation];
+        return [$routeName => $translation];
     }
 
     /**
-     * Builds an array of linkable items and routes to feed a list on the back office
+     * Returns the url of an linkable item.
+     *
+     * @overridable
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function linkableUrl(): string
+    {
+        return isset($this->slug) ? url($this->slug) : '';
+    }
+
+    /**
+     * Returns the label of the linkable item.
+     * Title by default.
+     *
+     * @overridable
+     * @return string
+     */
+    public function linkableTitle(): string
+    {
+        return isset($this->title) ? $this->title : '';
+    }
+
+    /**
+     * Returns the id of the linkable item.
+     *
+     * @overridable
+     * @return string
+     */
+    public function linkableId(): string
+    {
+        $primaryKey = $this->getKeyName();
+
+        return $this->{$primaryKey};
+    }
+
+    /**
+     * Returns a sorted collection of linkable items and routes.
+     * This collection is used in the back office (backpack) to feed a select list.
+     * This select list is intended for adding new menu items.
      *
      * @return array
      */
@@ -49,9 +104,9 @@ trait LinkedItems
             $links = array_merge($links, $items);
         }
 
-        $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
-        foreach ($linkableUrls as $url => $translation) {
-            $items = $class::linkableUrls($url, trans($translation));
+        $linkableRoutes = config('backpack.laravel-backpack-menu.linkableRoutes', []);
+        foreach ($linkableRoutes as $routeName => $translation) {
+            $items = static::linkableRoute($routeName, trans($translation));
             $links = array_merge($links, $items);
         }
 
@@ -60,42 +115,12 @@ trait LinkedItems
         return $links;
     }
 
-    public function linkableUrl()
-    {
-        return url($this->slug);
-    }
-
     /**
-     * Returns the label for the item. Title by default.
-     * Optionally overridable within items having no title (for instance name)
-     * @return string
-     */
-    public function linkableTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Returns the id for the item.
-     * Optionally overridable within items having a primary other than:
-     *  the default "id" primary key.
-     *  the custom primary key defined within the model.
-     *
-     * @return string
-     */
-    public function linkableId()
-    {
-        $primaryKey = $this->getKeyName();
-
-        return $this->{$primaryKey};
-    }
-
-    /**
-     * Returns an array:
+     * Returns an array of an url - label pair:
      *  key: linkable item url
      *  value: linkable item label
      *
-     * @param string $link
+     * @param string $link It is the linkable item id stored in the database for a menu item.
      * @return array
      */
     public static function linkedItem(string $link): array
@@ -109,10 +134,11 @@ trait LinkedItems
     }
 
     /**
-     * It takes both linkableItems and linkableUrls and returns an array or urls and labels.
-     * Builds an array of both linkableItems and linkableUrls to feed a list on the front office
+     * It takes both linkableItems and linkableRoutes and returns a sorted array or urls and labels.
+     * Builds an array of both linkableItems and linkableRoutes in order to feed a list
+     * on the front office when creating the menu items.
      *
-     * @param array $links an array of linkableItems and/or linkableUrls
+     * @param array $links an array of linkableItems and/or linkableRoutes
      * @return array An array of url => label
      */
     public static function linkedItemsOrUrlRoutes(array $links): array
@@ -122,7 +148,7 @@ trait LinkedItems
         }
 
         $linkedItemsOrUrlRoutes = [];
-        $linkableUrls = config('backpack.laravel-backpack-menu.linkableUrls', []);
+        $linkableRoutes = config('backpack.laravel-backpack-menu.linkableRoutes', []);
 
         foreach ($links as $link) {
             $url = null;
@@ -138,7 +164,7 @@ trait LinkedItems
                 }
             } elseif (count($linkParts) === 1 && $link) { // ex: contact
                 $url = route($link);
-                $label = isset($linkableUrls[$link]) ? trans($linkableUrls[$link]) : '';
+                $label = isset($linkableRoutes[$link]) ? trans($linkableRoutes[$link]) : '';
             }
 
             if ($url && $label) {
@@ -158,7 +184,7 @@ trait LinkedItems
      * @param $prefix
      * @return string
      */
-    protected static function linkableLabel($name, $prefix)
+    public static function linkableLabel(string $name, string $prefix = ''): string
     {
         $label = $name;
 

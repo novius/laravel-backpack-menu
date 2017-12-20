@@ -57,9 +57,11 @@ use Novius\Backpack\Menu\LinkedItems;
 
 // And optionally overrides the base functionality to suit your needs:
 
-public static function linkableItems(string $prefix = ''){}
-public function linkableUrl(){}
-public function linkableTitle(){}
+public static function linkableItems(string $prefix = ''): array
+public static function linkableRoute(string $routeName, string $translation): array
+public function linkableUrl(): string
+public function linkableTitle(): string
+public function linkableId(): string
 ```
 
 #### Add a link in your sidebar.blade.php file to get access from the backpack backoffice
@@ -82,6 +84,9 @@ Run the tests with:
 ```sh
 ./test.sh
 ```
+
+Any modification must pass all the tests.
+Any modification should be covered by a test.
 
 ## Lint
 
