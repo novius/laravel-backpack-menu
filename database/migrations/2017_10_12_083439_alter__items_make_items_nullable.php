@@ -26,7 +26,7 @@ class AlterItemsMakeItemsNullable extends Migration
     public function down()
     {
         Schema::table('novius_menu_items', function (Blueprint $table) {
-            $table->dropColumn('links');
+            $table->string('links');
         });
     }
 }
