@@ -15,11 +15,11 @@ class ItemController extends CrudController
 {
     public function setup()
     {
-        $menuId = Request::input('menu');
+        $menuId = (int) Request::input('menu');
 
         $this->crud->setModel(Item::class);
         $this->crud->setRoute(route('crud.item.index'));
-        $this->crud->setIndexRoute('crud.item.index', ['menu' => (int) request('menu')]);
+        $this->crud->setIndexRoute('crud.item.index', ['menu' => $menuId]);
         $this->crud->setEntityNameStrings(trans('laravel-backpack-menu::menu.item'), trans('laravel-backpack-menu::menu.items'));
         $this->crud->setEditView('laravel-backpack-menu::edit');
 
