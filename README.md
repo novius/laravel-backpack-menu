@@ -14,13 +14,14 @@ In your terminal:
 composer require novius/laravel-backpack-menu
 ```
 
-In `config/app.php`, add:
+Then, if you are on Laravel 5.4 (no need for Laravel 5.5 and higher), register the service provider to your `config/app.php` file:
 
 ```php
 Novius\Backpack\Menu\MenuServiceProvider::class
 ```
 
-Execute:
+Finally, run:
+
 ```bash
 php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="routes"
 php artisan vendor:publish --provider="Novius\Backpack\Menu\MenuServiceProvider" --tag="lang"

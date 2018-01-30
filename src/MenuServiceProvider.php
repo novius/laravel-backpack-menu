@@ -15,6 +15,8 @@ class MenuServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
+        $this->setupRoutes();
+
         $packageDir = dirname(__DIR__);
 
         $this->publishes([$packageDir.'/config' => config_path('backpack')], 'config');
@@ -36,7 +38,7 @@ class MenuServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        $this->setupRoutes();
+        //
     }
 
     /**
