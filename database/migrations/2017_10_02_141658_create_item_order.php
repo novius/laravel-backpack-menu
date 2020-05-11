@@ -14,10 +14,10 @@ class CreateItemOrder extends Migration
     public function up()
     {
         Schema::table('novius_menu_items', function (Blueprint $table) {
-            $table->integer('parent_id')->default(0)->nullable();
-            $table->integer('lft')->unsigned()->nullable();
-            $table->integer('rgt')->unsigned()->nullable();
-            $table->integer('depth')->unsigned()->nullable();
+            $table->unsignedBigInteger('parent_id')->default(0)->nullable();
+            $table->unsignedBigInteger('lft')->nullable();
+            $table->unsignedBigInteger('rgt')->nullable();
+            $table->unsignedBigInteger('depth')->nullable();
         });
     }
 

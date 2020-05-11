@@ -14,7 +14,7 @@ class CreateMenuItemRelation extends Migration
     public function up()
     {
         Schema::table('novius_menu_items', function (Blueprint $table) {
-            $table->unsignedInteger('menu_id');
+            $table->unsignedBigInteger('menu_id');
         });
     }
 

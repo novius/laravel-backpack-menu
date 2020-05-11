@@ -13,6 +13,8 @@ In your terminal:
 ```sh
 composer require novius/laravel-backpack-menu
 ```
+* For laravel 5.5, 5.6, 5.7, 5.8 use 0.5
+* For laravel 5.4 use 0.2
 
 Then, if you are on Laravel 5.4 (no need for Laravel 5.5 and higher), register the service provider to your `config/app.php` file:
 
