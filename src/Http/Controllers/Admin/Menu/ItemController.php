@@ -39,7 +39,6 @@ class ItemController extends CrudController
         $this->crud->addButton('top', 'reorder', 'view', 'laravel-backpack-menu::buttons.reorder', 'end');
 
         $this->crud->addButton('line', 'update', 'view', 'laravel-backpack-menu::buttons.update');
-        $this->crud->addButton('line', 'delete', 'view', 'laravel-backpack-menu::buttons.delete');
 
         $this->crud->addColumn([
             'name' => 'name',
